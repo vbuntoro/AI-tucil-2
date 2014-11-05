@@ -1,0 +1,33 @@
+			String[] options = new String[15];
+            options[0] = "-L";
+            options[1] = "0.3";
+            options[2] = "-M";
+            options[4] = "0.2";
+			options[5] = "-N";
+			options[6] = "500";
+			options[7] = "-V";
+			options[8] = "0";
+			options[9] = "-S";
+			options[10] = "0";
+			options[11] = "-E";
+			options[12] = "20";
+			options[13] = "-H";
+			options[14] = "a";
+            MultilayerPerceptron klas = new MultilayerPerceptron();
+            klas.setOptions(options);
+            klas.buildClassifier(dataset);
+            System.out.println(klas.toSummaryString());
+            //Evaluation Build
+            Evaluation eval = new Evaluation(dataset);
+            if(args[2].equals("cross")) {
+                eval.crossValidateModel(klas, dataset, 10, new Random(1));
+                System.out.println(eval.toSummaryString("\nResults\n\n", false));  
+            } else if(args[2].equals("fullset")) {
+                Classifier cls = new MultilayerPerceptron();
+                cls.buildClassifier(dataset);
+                eval.evaluateModel(cls, dataset);
+                System.out.println(eval.toSummaryString("\nResults\n\n", false));
+            } else {
+                System.err.println("args 2 must be either cross or fullset only");
+                System.exit(1);
+            }
