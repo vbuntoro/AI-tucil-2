@@ -19,7 +19,10 @@ package tucil2;
 
 import java.io.File;
 import java.io.IOException;
+import weka.core.Instances;
 import weka.core.converters.ArffLoader;
+import weka.core.converters.ConverterUtils;
+import weka.core.converters.ConverterUtils.DataSource;
 
 /**
  *
@@ -31,10 +34,10 @@ public class Tucil2 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        ArffLoader loader = new ArffLoader();
-        loader.setFile(new File(args[0]));
+        Instances dataset = DataSource.read(args[0]);
+        
     }
     
 }
