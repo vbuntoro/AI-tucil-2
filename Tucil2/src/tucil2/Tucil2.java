@@ -20,6 +20,7 @@ package tucil2;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -40,7 +41,7 @@ public class Tucil2 {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         Instances dataset = DataSource.read(args[0]);
-        dataset.setClassIndex(1);
+        dataset.setClassIndex(dataset.numAttributes() - 1);
         if(args[1].equals("J48")) {
             String[] options = new String[4];
             options[0] = "-C";
@@ -56,7 +57,11 @@ public class Tucil2 {
                 eval.crossValidateModel(tree, dataset, 10, new Random(1));
                 System.out.println(eval.toSummaryString("\nResults\n\n", false));  
             } else if(args[2].equals("fullset")) {
-
+                Classifier cls = new J48();
+                cls.buildClassifier(dataset);
+                Evaluation eval = new Evaluation(dataset);
+                eval.evaluateModel(cls, dataset);
+                System.out.println(eval.toSummaryString("\nResults\n\n", false));
             } else {
                 System.err.println("args 2 must be either cross or fullset only");
                 System.exit(1);
