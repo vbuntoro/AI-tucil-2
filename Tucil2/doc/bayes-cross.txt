@@ -1,0 +1,15 @@
+
+Results
+
+
+Correctly Classified Instances           8               57.1429 %
+Incorrectly Classified Instances         6               42.8571 %
+Kappa statistic                         -0.0244
+Mean absolute error                      0.4374
+Root mean squared error                  0.4916
+Relative absolute error                 91.8631 %
+Root relative squared error             99.6492 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)     100      %
+Total Number of Instances               14     
+

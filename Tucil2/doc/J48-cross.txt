@@ -1,0 +1,18 @@
+Number of leaves: 5
+Size of the tree: 8
+
+
+Results
+
+
+Correctly Classified Instances           7               50      %
+Incorrectly Classified Instances         7               50      %
+Kappa statistic                         -0.0426
+Mean absolute error                      0.4167
+Root mean squared error                  0.5984
+Relative absolute error                 87.5    %
+Root relative squared error            121.2987 %
+Coverage of cases (0.95 level)          78.5714 %
+Mean rel. region size (0.95 level)      64.2857 %
+Total Number of Instances               14     
+
