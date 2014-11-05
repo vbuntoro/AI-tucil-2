@@ -17,17 +17,24 @@
  */
 package tucil2;
 
+import java.io.File;
+import java.io.IOException;
+import weka.core.converters.ArffLoader;
+
 /**
  *
  * @author Michael
  */
 public class Tucil2 {
 
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
+        ArffLoader loader = new ArffLoader();
+        loader.setFile(new File(args[0]));
     }
     
 }
