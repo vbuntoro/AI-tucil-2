@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Random;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.lazy.IBk;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
@@ -48,14 +49,14 @@ public class Tucil2 {
             options[1] = "0.25";
             options[2] = "-M";
             options[3] = "2";
-            J48 tree = new J48();
-            tree.setOptions(options);
-            tree.buildClassifier(dataset);
-            System.out.println(tree.toSummaryString());
+            J48 klas = new J48();
+            klas.setOptions(options);
+            klas.buildClassifier(dataset);
+            System.out.println(klas.toSummaryString());
             //Evaluation Build
             Evaluation eval = new Evaluation(dataset);
             if(args[2].equals("cross")) {
-                eval.crossValidateModel(tree, dataset, 10, new Random(1));
+                eval.crossValidateModel(klas, dataset, 10, new Random(1));
                 System.out.println(eval.toSummaryString("\nResults\n\n", false));  
             } else if(args[2].equals("fullset")) {
                 Classifier cls = new J48();
@@ -68,22 +69,23 @@ public class Tucil2 {
             }
         }
         else if(args[1].equals("ibk")) {
-                String[] options = new String[4];
-                options[0] = "-C";
-                options[1] = "0.25";
-                options[2] = "-M";
-                options[3] = "2";
-                J48 tree = new J48();
-                tree.setOptions(options);
-                tree.buildClassifier(dataset);
-                System.out.println(tree.toSummaryString());
+                String[] options = new String[6];
+                options[0] = "-K";
+                options[1] = "1";
+                options[2] = "-W";
+                options[3] = "0";
+                options[4] = "-A";
+                options[5] = "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\"";            
+                IBk klas = new IBk();
+                klas.setOptions(options);
+                klas.buildClassifier(dataset);
                 //Evaluation Build
                 Evaluation eval = new Evaluation(dataset);
                 if(args[2].equals("cross")) {
-                    eval.crossValidateModel(tree, dataset, 10, new Random(1));
+                    eval.crossValidateModel(klas, dataset, 10, new Random(1));
                     System.out.println(eval.toSummaryString("\nResults\n\n", false));  
                 } else if(args[2].equals("fullset")) {
-                    Classifier cls = new J48();
+                    Classifier cls = new IBk();
                     cls.buildClassifier(dataset);
                     eval.evaluateModel(cls, dataset);
                     System.out.println(eval.toSummaryString("\nResults\n\n", false));
