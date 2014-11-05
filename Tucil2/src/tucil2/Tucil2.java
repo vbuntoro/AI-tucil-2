@@ -52,14 +52,14 @@ public class Tucil2 {
             tree.setOptions(options);
             tree.buildClassifier(dataset);
             System.out.println(tree.toSummaryString());
+            //Evaluation Build
+            Evaluation eval = new Evaluation(dataset);
             if(args[2].equals("cross")) {
-                Evaluation eval = new Evaluation(dataset);
                 eval.crossValidateModel(tree, dataset, 10, new Random(1));
                 System.out.println(eval.toSummaryString("\nResults\n\n", false));  
             } else if(args[2].equals("fullset")) {
                 Classifier cls = new J48();
                 cls.buildClassifier(dataset);
-                Evaluation eval = new Evaluation(dataset);
                 eval.evaluateModel(cls, dataset);
                 System.out.println(eval.toSummaryString("\nResults\n\n", false));
             } else {
@@ -67,6 +67,32 @@ public class Tucil2 {
                 System.exit(1);
             }
         }
+        else if(args[1].equals("ibk")) {
+                String[] options = new String[4];
+                options[0] = "-C";
+                options[1] = "0.25";
+                options[2] = "-M";
+                options[3] = "2";
+                J48 tree = new J48();
+                tree.setOptions(options);
+                tree.buildClassifier(dataset);
+                System.out.println(tree.toSummaryString());
+                //Evaluation Build
+                Evaluation eval = new Evaluation(dataset);
+                if(args[2].equals("cross")) {
+                    eval.crossValidateModel(tree, dataset, 10, new Random(1));
+                    System.out.println(eval.toSummaryString("\nResults\n\n", false));  
+                } else if(args[2].equals("fullset")) {
+                    Classifier cls = new J48();
+                    cls.buildClassifier(dataset);
+                    eval.evaluateModel(cls, dataset);
+                    System.out.println(eval.toSummaryString("\nResults\n\n", false));
+                } else {
+                    System.err.println("args 2 must be either cross or fullset only");
+                    System.exit(1);
+                }
+    }
+        
     }
     
     
