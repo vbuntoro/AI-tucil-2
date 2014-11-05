@@ -110,7 +110,7 @@ public class Tucil2 {
             options[13] = "-H";
             options[14] = "a";
             MultilayerPerceptron klas = new MultilayerPerceptron();
-            klas.setOptions(options);
+            //klas.setOptions(options);
             klas.buildClassifier(dataset);
             //Evaluation Build
             Evaluation eval = new Evaluation(dataset);
